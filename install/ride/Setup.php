@@ -42,12 +42,6 @@ class Setup {
             "smarty/smarty" =>  "dev-master#d3e26fb679081bc5f4427d86cb8d4275e835e094",
         );
 
-
-        // Allow non https repository links
-        Setup::$composer['config'] = array(
-            'secure-http' => false
-        );
-
         $instance = new static();
 
         $io = new IO($event->getIO(), 2);
