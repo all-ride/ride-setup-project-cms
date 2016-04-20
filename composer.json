@@ -2,8 +2,7 @@
     "name": "statik/setup-project-cms",
     "description": "",
     "license": "MIT",
-    "minimum-stability": "stable",
-    "preferred-install": "dev",
+    "minimum-stability": "dev",
     "version": "1.4",
     "authors": [
         {
