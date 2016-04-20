@@ -73,8 +73,6 @@ class Setup {
             exec('php application/cli.php database create ' . Setup::$project);
             exec('php application/cli.php od');
             exec('php application/cli.php og');
-            $instance->setupContentManagerRole();
-            $instance->setSecuredPaths();
         }
     }
 
