@@ -1,0 +1,37 @@
+{
+    "name": "statik/setup-project-cms",
+    "description": "",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "preferred-install": "dev",
+    "version": "1.4",
+    "authors": [
+        {
+            "name": "Kristof Serré",
+            "email": "kristof@statik.be"
+        },
+        {
+            "name": "Wietse De Cnijf",
+            "email": "wietse@statik.be"
+        },
+        {
+            "name": "Jan Henckens",
+            "email": "jan@statik.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "install\\ride\\": "install/ride"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": "install\\ride\\Setup::run"
+    },
+     "config": {
+        "secure-http": false,
+        "preferred-install": "source"
+    }
+}
