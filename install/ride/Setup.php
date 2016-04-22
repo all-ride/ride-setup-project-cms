@@ -104,7 +104,16 @@ class Setup {
             );
             return $parameters;
         } else {
-            return;
+            $username = $io->ask(array('Enter your database username'));
+            $password = $io->ask(array('Enter your database password'));
+            $host = $io->ask(array('Enter your database host'));
+            $database = $io->ask(array('Enter your database host'));
+            $parameters['dev'] = array(
+                "cms.widget.offset" =>  300,
+                "system.image" => "gd",
+                "database.connection." . Setup::$project => 'mysql://'. $username.':' . $password . '@' . $host .':3306/' . $database
+            );
+            return $parameters;
         }
     }
 
