@@ -143,7 +143,7 @@ class Setup {
                 $key = '';
             }
             if(!file_exists(getcwd() . '/' .$basePath . $key)) {
-                mkdir(getcwd() . '/' . $basePath . $key, true);
+                mkdir(getcwd() . '/' . $basePath . $key, 0755, true);
             }
             $data = $environment;
             file_put_contents($basePath . $key . '/parameters.json', json_encode($data, JSON_PRETTY_PRINT) );
