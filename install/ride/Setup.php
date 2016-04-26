@@ -1,12 +1,4 @@
 <?php
-/*
- * This file is part of the WPStarter package.
- *
- * (c) Giuseppe Mazzapica <giuseppe.mazzapica@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace install\ride;
 
@@ -57,6 +49,10 @@ class Setup {
         $parameters = $instance->setLocalParams($parameters, $io);
         $createDatabase = $instance->createLocalDatabase($io);
 
+        if($createDatabase) {
+            $localUser = $instance->createLocalUser($io);
+        }
+
         // Mandrill
         $parameters = $instance->installMandrill($parameters, $io);
 
@@ -71,8 +67,11 @@ class Setup {
         $instance->writeParams($parameters);
         if($createDatabase){
             exec('php application/cli.php database create ' . Setup::$project);
-            exec('php application/cli.php od');
-            exec('php application/cli.php og');
+            if(false != $localUser) {
+                exec('php application/cli.php od');
+                exec('php application/cli.php og');
+                exec('php application/cli.php user add ' . $localUser['username'] . ' ' . $localUser['password'] . ' ' . $localUser['email']);
+            }
         }
     }
 
@@ -119,6 +118,18 @@ class Setup {
 
     private function createLocalDatabase(IO $io) {
         return $io->askConfirmation(array('Create a local database based on these settings?'));
+    }
+
+    private function createLocalUser(IO $io) {
+        $createUser = $io->askConfirmation(array('Do you want to enable security and create a new user?'));
+        if($createUser) {
+            $data['username'] = $io->ask(array('Enter your username'));
+            $data['password'] = $io->ask(array('Enter your password'));
+            $data['email'] = $io->ask(array('Enter your email address'));
+            return $data;
+        } else {
+            return false;
+        }
     }
 
     private function installMandrill($parameters, IO $io) {
